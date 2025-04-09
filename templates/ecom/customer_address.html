@@ -1,0 +1,88 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<style>
+.form-wrapper {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    background: #ffffff;
+}
+.form-wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+.form-group label {
+    font-weight: bold;
+}
+.btn-custom {
+    background-color: #4B99AD;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+}
+.btn-custom:hover {
+    background-color: #4691A4;
+}
+.required {
+    color: red;
+}
+</style>
+
+{% if product_in_cart %}
+<div class="form-wrapper">
+    <h2>Shipping Details</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group mb-3">
+            <label>Email <span class="required">*</span></label>
+            {% render_field addressForm.email class="form-control" placeholder="Enter your email" %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Mobile <span class="required">*</span></label>
+            {% render_field addressForm.mobile class="form-control" placeholder="Enter your mobile number" %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Address <span class="required">*</span></label>
+            {% render_field addressForm.address class="form-control" placeholder="Street, Building No." %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>City <span class="required">*</span></label>
+            {% render_field addressForm.city class="form-control" placeholder="City Name" %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>State <span class="required">*</span></label>
+            {% render_field addressForm.state class="form-control" placeholder="State Name" %}
+        </div>
+
+        <div class="form-group mb-4">
+            <label>Zip Code <span class="required">*</span></label>
+            {% render_field addressForm.zipcode class="form-control" placeholder="Postal Code" %}
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-custom">Proceed To Pay</button>
+        </div>
+    </form>
+</div>
+{% else %}
+<br><br>
+<h2 class="text-center text-danger">🛒 First Add Product To Cart</h2>
+<br><br><br><br><br><br><br><br><br><br>
+{% endif %}
+
+{% endblock content %}

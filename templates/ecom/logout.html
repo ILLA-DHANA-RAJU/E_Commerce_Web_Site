@@ -1,0 +1,18 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br>
+
+<div class="container text-center">
+    <img src="{% static 'images/logout_img.png' %}" alt="Logout" class="img-fluid" style="max-width: 500px;">
+    <h2 class="mt-4 text-danger">You've logged out successfully!</h2>
+    <p class="lead">Thank you for visiting. Click below to log in again.</p>
+    
+    <a href="{% url 'customerlogin' %}" class="btn btn-primary btn-lg mt-3">
+        Login Again
+    </a>
+</div>
+
+<br><br><br>
+
+{% endblock content %}

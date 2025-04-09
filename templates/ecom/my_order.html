@@ -1,0 +1,221 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f3f4f6;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+        transition: 0.3s ease;
+    }
+
+    .order-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .order-header {
+        background-color: #06a37c;
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        padding: 12px 0;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .product-img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .product-desc {
+        flex: 1;
+    }
+
+    .product-desc h5 {
+        margin: 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .product-desc p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 30px;
+        font-weight: 500;
+        color: white;
+    }
+
+    .Pending {
+        background-color: #ff9800;
+    }
+
+    .Delivered {
+        background-color: #4caf50;
+    }
+
+    .Confirmed {
+        background-color: #2196f3;
+    }
+
+    .Out {
+        background-color: #9c27b0;
+    }
+
+    .track-steps {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 20px;
+        position: relative;
+    }
+
+    .track-steps::before {
+        content: '';
+        position: absolute;
+        top: 26px;
+        left: 40px;
+        right: 40px;
+        height: 4px;
+        background: #ccc;
+        z-index: 0;
+    }
+
+    .step {
+        position: relative;
+        text-align: center;
+        flex: 1;
+        z-index: 1;
+    }
+
+    .step .icon {
+        width: 40px;
+        height: 40px;
+        background: #ccc;
+        color: white;
+        line-height: 40px;
+        border-radius: 50%;
+        margin: 0 auto 8px;
+        font-size: 16px;
+        transition: 0.3s ease;
+    }
+
+    .step.active .icon {
+        background: #06a37c;
+    }
+
+    .step span {
+        font-size: 13px;
+        display: block;
+    }
+
+    .order-footer {
+        text-align: right;
+        padding: 15px 20px;
+    }
+
+    .order-footer a {
+        background: #e53935;
+        color: white;
+        padding: 8px 15px;
+        font-size: 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .order-footer a:hover {
+        background: #c62828;
+    }
+</style>
+
+<div class="container">
+    {% for products, order in data %}
+        <div class="order-card">
+            <div class="order-header">🛒 Order ID: #{{ order.id }}</div>
+
+            {% for product in products %}
+                <div class="product-info">
+                    <img class="product-img" src="{{ product.product_image.url }}" alt="Product Image">
+                    <div class="product-desc">
+                        <h5>{{ product.name }}</h5>
+                        <p>{{ product.description }}</p>
+                        <p><strong>Price:</strong> ₹{{ product.price }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="track-steps">
+                <div class="step {% if order.status in 'Pending Order Confirmed Out for Delivery Delivered' %}active{% endif %}">
+                    <div class="icon"><i class="fas fa-spinner"></i></div>
+                    <span>Pending</span>
+                </div>
+                <div class="step {% if order.status in 'Order Confirmed Out for Delivery Delivered' %}active{% endif %}">
+                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                    <span>Confirmed</span>
+                </div>
+                <div class="step {% if order.status in 'Out for Delivery Delivered' %}active{% endif %}">
+                    <div class="icon"><i class="fas fa-truck-moving"></i></div>
+                    <span>Out for Delivery</span>
+                </div>
+                <div class="step {% if order.status == 'Delivered' %}active{% endif %}">
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <span>Delivered</span>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-desc">
+                    <p><strong>Delivery Address:</strong> {{ order.address }}</p>
+                    <p><strong>Status:</strong>
+                        <span class="status-badge 
+                            {% if order.status == 'Pending' %}Pending
+                            {% elif order.status == 'Delivered' %}Delivered
+                            {% elif order.status == 'Out for Delivery' %}Out
+                            {% else %}Confirmed{% endif %}">
+                            {{ order.status }}
+                        </span>
+                    </p>
+                </div>
+                <div class="order-footer">
+                    <a href="{% url 'download-invoice' order.id products.0.id %}"><i class="fas fa-download"></i> Invoice</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

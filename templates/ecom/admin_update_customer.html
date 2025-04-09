@@ -1,0 +1,90 @@
+{% extends 'ecom/admin_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+  .update-container{
+    margin-bottom: 50px;
+    padding: revert;
+  }
+  .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #203A43, #2C5364);
+    color: white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .form-control {
+    border-radius: 0.75rem;
+  }
+
+  .btn-update {
+    background-color: #198754;
+    color: white;
+    border-radius: 0.75rem;
+    padding: 0.6rem 2rem;
+    font-weight: bold;
+  }
+
+  .btn-update:hover {
+    background-color: #157347;
+  }
+</style>
+
+<div class="container update-container">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <form method="POST" enctype="multipart/form-data" class="card">
+        {% csrf_token %}
+        <div class="card-header">
+          Update Customer Details
+        </div>
+        <div class="card-body p-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Username</label>
+                {% render_field userForm.username class="form-control" placeholder="Username" %}
+              </div>
+              <div class="form-group">
+                <label>Mobile Number</label>
+                {% render_field customerForm.mobile class="form-control" placeholder="Contact Number" %}
+              </div>
+              <div class="form-group">
+                <label>Profile Picture</label>
+                {% render_field customerForm.profile_pic class="form-control" %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Password</label>
+                {% render_field userForm.password class="form-control" placeholder="Password" %}
+              </div>
+              <div class="form-group">
+                <label>Address</label>
+                {% render_field customerForm.address class="form-control" placeholder="Customer Address" %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center py-3">
+          <button type="submit" class="btn btn-update">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

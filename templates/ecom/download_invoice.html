@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <title>Invoice</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 1cm;
+
+      @frame footer {
+        -pdf-frame-content: footerContent;
+        bottom: 0cm;
+        margin-left: 9cm;
+        margin-right: 9cm;
+        height: 1cm;
+      }
+    }
+
+    body {
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: #333;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .invoice-box table {
+      width: 100%;
+      line-height: inherit;
+      text-align: left;
+      border-collapse: collapse;
+    }
+
+    .invoice-box table td {
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    .invoice-box table tr.heading td {
+      background: #f2f2f2;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+      padding: 10px 0;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.total td {
+      font-weight: bold;
+      border-top: 2px solid #eee;
+    }
+
+    .title {
+      font-size: 30px;
+      color: #333;
+      font-weight: bold;
+      padding-bottom: 20px;
+    }
+
+    .info-block {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .product-img {
+      border: 1px solid #ccc;
+      padding: 4px;
+      margin-top: 10px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #444;
+      margin-top: 30px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-box">
+
+    <div class="title">🛒 Ecommerce Site - Django</div>
+
+    <table>
+      <tr class="heading">
+        <td colspan="2">Order Summary</td>
+      </tr>
+      <tr class="details">
+        <td>Order Date:</td>
+        <td>{{ orderDate }}</td>
+      </tr>
+    </table>
+
+    <div class="section-title">Customer Information</div>
+    <table>
+      <tr class="details">
+        <td>
+          <strong>Name:</strong> {{ customerName }}<br>
+          <strong>Email:</strong> {{ customerEmail }}<br>
+          <strong>Mobile:</strong> {{ customerMobile }}<br>
+        </td>
+        <td>
+          <strong>Shipping Address:</strong><br>{{ shipmentAddress }}
+        </td>
+      </tr>
+    </table>
+
+    <div class="section-title">Product Details</div>
+    <table>
+      <tr class="details">
+        <td style="width: 50%;">
+          <strong>Product Name:</strong><br> {{ productName }}<br><br>
+          <strong>Description:</strong><br> {{ productDescription }}<br><br>
+          <strong>Price:</strong> ₹ {{ productPrice }}<br><br>
+        </td>
+        <td style="text-align: center;">
+          <img class="product-img" src="{% static product_image.url %}" height="80px" width="80px" alt="Product Image" />
+        </td>
+      </tr>
+    </table>
+
+    <div class="section-title">Order Status</div>
+    <table>
+      <tr class="details">
+        <td>
+          <strong>Status:</strong> {{ orderStatus }}
+        </td>
+      </tr>
+    </table>
+
+    <div id="footerContent" style="text-align: center; font-size: 12px; margin-top: 40px;">
+      Developed by ❤️ Keerthi | Generated on {{ orderDate }}
+    </div>
+
+  </div>
+</body>
+
+</html>

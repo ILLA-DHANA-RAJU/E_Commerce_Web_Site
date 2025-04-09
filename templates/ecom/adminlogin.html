@@ -1,0 +1,136 @@
+{% extends 'ecom/adminbase.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Admin Login</h2>
+            <p>Login to your admin account</p>
+        </div>
+
+        {% if form.errors %}
+        <div class="form-errors">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="auth-form" id="adminLoginForm" novalidate>
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                <span class="toggle-password" onclick="togglePassword('id_password')">👁️</span>
+            </div>
+
+            <button type="submit" class="auth-btn">Login</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="{% url 'adminsignup' %}" class="auth-link">Register here</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    if (field && field.type === 'password') {
+        field.type = 'text';
+    } else if (field) {
+        field.type = 'password';
+    }
+}
+</script>
+
+<style>
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-header img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.auth-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 38px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 10px;
+    background: #764ba2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background: #5a3c7d;
+}
+
+.error {
+    color: #ff4444;
+    font-size: 14px;
+    margin: 5px 0;
+}
+</style>
+{% endblock %}

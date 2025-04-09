@@ -1,0 +1,245 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body {
+    background: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .menu {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    display: flex;
+    transform: translateX(-50%);
+  }
+
+  .menu span {
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .menu span.active {
+    background: #333;
+    opacity: 1;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 30px 10px;
+  }
+
+  .column {
+    flex: 1 1 300px;
+    max-width: 300px;
+    margin: 15px;
+  }
+
+  .el-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .el-wrapper:hover {
+    transform: translateY(-5px);
+  }
+
+  .box-up img.img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .img-info {
+    padding: 15px;
+  }
+
+  .info-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .p-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .p-company {
+    font-size: 14px;
+    color: #777;
+  }
+
+  .a-size {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #555;
+  }
+
+  .box-down {
+    padding: 15px;
+    background: #fafafa;
+    border-top: 1px solid #eee;
+  }
+
+  .cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    background: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+
+  .cart:hover {
+    background: #218838;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+  .txt {
+    margin-left: 10px;
+  }
+
+  .no-products {
+    text-align: center;
+    font-size: 22px;
+    margin: 40px auto;
+    color: #777;
+  }
+
+  @media screen and (max-width: 768px) {
+    .slider-container {
+      height: 250px;
+    }
+
+    .box-up img.img {
+      height: 180px;
+    }
+  }
+</style>
+
+<!-- SLIDER -->
+<div class="slider-container">
+  <div class="slide active">
+    <img src="{% static 'images/ecom-banner1.jpg' %}" alt="Banner 1">
+  </div>
+  <div class="slide">
+    <img src="{% static 'images/ecom-banner2.jpg' %}" alt="Banner 2">
+  </div>
+  <div class="slide">
+    <img src="{% static 'images/ecom-banner3.jpg' %}" alt="Banner 3">
+  </div>
+  <div class="menu">
+    <span class="dot active" onclick="showSlide(0)"></span>
+    <span class="dot" onclick="showSlide(1)"></span>
+    <span class="dot" onclick="showSlide(2)"></span>
+  </div>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("active");
+      dots[i].classList.remove("active");
+    });
+    slides[index].classList.add("active");
+    dots[index].classList.add("active");
+    currentSlide = index;
+  }
+
+  function autoSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  setInterval(autoSlide, 5000);
+</script>
+
+<!-- PRODUCTS -->
+{% if products %}
+<div class="row">
+  {% for p in products %}
+    <div class="column">
+      <div class="el-wrapper">
+        <div class="box-up">
+          <img class="img" src="{{ p.product_image.url }}" alt="{{ p.name }}">
+          <div class="img-info">
+            <div class="info-inner">
+              <span class="p-name">{{ p.name }}</span>
+              <span class="p-company">{{ p.category }}</span>
+            </div>
+            <div class="a-size">Available: <span class="size">{{ p.stock }}</span></div>
+          </div>
+        </div>
+        <div class="box-down">
+          <a class="cart" href="{% url 'add-to-cart' p.id %}">
+            <span class="price">₹{{ p.price }}</span>
+            <span class="add-to-cart">
+              <span class="txt">Add to cart</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+  <p class="no-products">No products available at the moment!</p>
+{% endif %}
+
+{% endblock content %}

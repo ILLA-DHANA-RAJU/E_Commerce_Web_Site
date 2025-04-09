@@ -1,0 +1,104 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .success-page {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 40px;
+    text-align: center;
+    border-radius: 20px;
+    background: #f9f9f9;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.6s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .success-page img {
+    max-width: 80px;
+    margin-bottom: 20px;
+    animation: pop 0.5s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .success-page h2 {
+    color: #2ecc71;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+
+  .success-page p {
+    font-size: 18px;
+    margin: 10px 0 30px;
+    color: #333;
+  }
+
+  .success-btns a {
+    display: inline-block;
+    margin: 10px 15px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-orders {
+    background: #3498db;
+    color: white;
+    border: none;
+  }
+
+  .btn-orders:hover {
+    background: #2980b9;
+  }
+
+  .btn-shop {
+    background: #2ecc71;
+    color: white;
+    border: none;
+  }
+
+  .btn-shop:hover {
+    background: #27ae60;
+  }
+
+  @media (max-width: 576px) {
+    .success-page {
+      padding: 25px;
+    }
+
+    .success-btns a {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+</style>
+
+<div class="success-page">
+  <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Success Checkmark" />
+  <h2>Payment Successful 🎉</h2>
+  <p>We're delighted to confirm your payment. Your order is on the way!</p>
+
+  <div class="success-btns">
+    <a href="/my_order" class="btn-orders">📦 View Orders</a>
+    <a href="/customer_home" class="btn-shop">🛍️ Continue Shopping</a>
+  </div>
+</div>
+{% endblock content %}

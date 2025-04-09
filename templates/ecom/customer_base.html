@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple E-commerce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        nav.navbar {
+            background-color: #3e454c !important;
+            height: 70px !important;
+        }
+
+        nav.navbar .navbar-brand,
+        nav.navbar .nav-link,
+        nav.navbar .navbar-text {
+            color: white !important;
+        }
+
+        nav.navbar .navbar-brand:hover,
+        nav.navbar .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        .search-bar input {
+            border-radius: 30px 0 0 30px;
+            border-right: 0;
+        }
+
+        .search-bar button {
+            border-radius: 0 30px 30px 0;
+        }
+
+        .cart-badge {
+            background-color: #ffc107;
+            color: black;
+            padding: 4px 8px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        footer {
+          background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+          color: white;
+          padding: 40px 0 20px;
+          margin-top: 50px;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        footer::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #e5bc41, #f39c12, #e5bc41);
+          animation: gradientBG 3s ease infinite;
+          background-size: 200% 200%;
+        }
+
+        @keyframes gradientBG {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .footer-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        .social-icons {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-bottom: 30px;
+          flex-wrap: wrap;
+        }
+
+        .social-icon {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          color: white;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.1);
+          transform: scale(0);
+          border-radius: 50%;
+          transition: transform 0.3s ease;
+        }
+
+        .social-icon:hover::after {
+          transform: scale(1);
+        }
+
+        .social-icon:hover {
+          transform: translateY(-5px) scale(1.1);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .facebook { background-color: #3B5998; }
+        .whatsapp { background-color: #25D366; }
+        .instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .twitter { background-color: #1DA1F2; }
+
+        .footer-content {
+          text-align: center;
+          padding: 20px 0;
+        }
+
+        .footer-content p {
+          margin: 10px 0;
+          font-size: 16px;
+          line-height: 1.6;
+        }
+
+        .copyright {
+          font-size: 14px;
+          opacity: 0.8;
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .developer {
+          display: inline-block;
+          margin-top: 15px;
+          padding: 8px 15px;
+          background: rgba(229, 188, 65, 0.2);
+          border-radius: 20px;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+
+        .developer:hover {
+          background: rgba(229, 188, 65, 0.4);
+          transform: translateY(-2px);
+        }
+
+        .back-to-top {
+          position: absolute;
+          right: 30px;
+          top: -25px;
+          width: 50px;
+          height: 50px;
+          background: #e5bc41;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #2c3e50;
+          font-size: 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .back-to-top:hover {
+          background: #f39c12;
+          transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+          .social-icons { gap: 15px; }
+          .social-icon { width: 50px; height: 50px; font-size: 20px; }
+          .back-to-top { width: 40px; height: 40px; font-size: 16px; top: -20px; }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-collapse { background-color: #3e454c; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Simple Ecommerce</a>
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+            <span class="navbar-toggler-icon bg-light"></span>
+        </button>
+
+        <!-- Search -->
+        <form class="d-flex mx-3 search-bar" method="get" action="/search">
+            <input class="form-control" type="search" name="query" placeholder="Search for Products...">
+            <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+
+        <!-- Cart -->
+        <a href="/cart" class="btn btn-outline-light position-relative me-2">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle cart-badge">{{ product_count_in_cart }}</span>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+                <li class="nav-item"><a class="nav-link" href="{% url 'customer_home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'my_order' %}">Track Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'my_profile' %}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+
+    {% block content %}
+    {% endblock %}
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="social-icons">
+      <a href="#" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-icon whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" class="social-icon instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-icon twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+
+    <div class="footer-content">
+      <p>Ecommerce Site in Python using Django Framework</p>
+      <p>Your one-stop shop for all your needs</p>
+      <div class="copyright">
+        &copy; 2025 All Rights Reserved
+      </div>
+      <span class="developer">
+        Developed with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Keerthi
+      </span>
+    </div>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

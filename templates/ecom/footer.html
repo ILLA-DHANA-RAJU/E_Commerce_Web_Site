@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Footer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    footer {
+      background-color: #111;
+      color: #fff;
+      padding: 25px 0;
+      text-align: center;
+      position: relative;
+      width: 100%;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .social-icons {
+      margin-bottom: 10px;
+    }
+
+    .social-icon {
+      display: inline-block;
+      margin: 0 8px;
+      font-size: 20px;
+      color: white;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-icon:hover {
+      color: #f4c542;
+      transform: scale(1.2);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<footer>
+  <div class="container-box">
+    <div class="social-icons">
+      <a href="#" class="social-icon"><i class="fa fa-facebook-official"></i></a>
+      <a href="#" class="social-icon"><i class="fa fa-whatsapp"></i></a>
+      <a href="#" class="social-icon"><i class="fa fa-instagram"></i></a>
+      <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a>
+    </div>
+    <p1>&copy; 2025 Simple E-commerce. Made with ❤️ by Keerthi.</p1>
+  </div>
+
+  <script>
+    // Animate icons on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      const icons = document.querySelectorAll('.social-icon');
+      icons.forEach((icon, index) => {
+        icon.style.opacity = '0';
+        icon.style.transform = 'translateY(20px)';
+        icon.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        setTimeout(() => {
+          icon.style.opacity = '1';
+          icon.style.transform = 'translateY(0)';
+        }, 150 * index);
+      });
+    });
+  </script>
+</footer>
+
+</body>
+</html>

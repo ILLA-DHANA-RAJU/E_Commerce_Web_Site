@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Signup</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 60px auto;
+            background: #3E454C;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: 600;
+        }
+
+        form input, form textarea {
+            width: 93%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        form input:focus, form textarea:focus {
+            border-color: #007bff;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-top: 8px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-160%);
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px
+        }
+
+        .btn-submit:hover {
+            background: #0056b3;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .errorlist {
+            color: red;
+            margin: 0 0 10px 0;
+            font-size: 13px;
+            list-style: none;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+ {% include "ecom/navbar.html" %}
+<div class="container">
+    <h2>Create Customer Account</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- User Form Fields -->
+        {{ user_form.non_field_errors }}
+        {% for field in user_form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {{ field.errors }}
+            {% if field.name == 'password' %}
+            <div class="form-group">
+                <span class="toggle-password" onclick="togglePassword()">👁️ Show</span>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Customer Form Fields -->
+        {{ customer_form.non_field_errors }}
+        {% for field in customer_form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {{ field.errors }}
+        {% endfor %}
+
+        <button class="btn-submit" type="submit">Register</button>
+
+    </form>
+</div>
+
+<script>
+  function togglePassword() {
+      const passwordInput = document.querySelector('input[type="password"], input[type="text"][name="password"]');
+      const toggleText = document.querySelector('.toggle-password');
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleText.textContent = "🙈 Hide";
+      } else {
+          passwordInput.type = "password";
+          toggleText.textContent = "👁️ Show";
+      }
+  }
+</script>
+</script>
+
+
+{% include "ecom/footer.html"%}
+
+</body>
+</html>

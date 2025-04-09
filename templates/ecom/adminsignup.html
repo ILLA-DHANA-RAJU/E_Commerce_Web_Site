@@ -1,0 +1,155 @@
+{% extends 'ecom/adminbase.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Admin Registration</h2>
+            <p>Create your admin account</p>
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" class="auth-form" id="adminSignupForm">
+            {% csrf_token %}
+
+            {% if userForm.errors or adminForm.errors %}
+            <div class="form-errors">
+                {% for field in userForm %}
+                    {% for error in field.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for field in adminForm %}
+                    {% for error in field.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- User Form Fields -->
+            <div class="form-group">
+                {{ adminForm.username.label_tag }}
+                {% render_field adminForm.username class="form-control" %}
+            </div>
+
+            <div class="form-group">
+                {{ adminForm.email.label_tag }}
+                {% render_field adminForm.email class="form-control" %}
+            </div>
+
+            <div class="form-group">
+                {{ adminForm.password.label_tag }}
+                {% render_field adminForm.password class="form-control" %}
+            </div>
+
+            <!-- Admin Profile Fields -->
+            <div class="form-group">
+                {{ adminForm.mobile.label_tag }}
+                {% render_field adminForm.mobile class="form-control" %}
+            </div>
+
+            <div class="form-group">
+                {{ adminForm.profile_pic.label_tag }}
+                {% render_field adminForm.profile_pic class="form-control" %}
+            </div>
+
+            <button type="submit" class="auth-btn">Register</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{% url 'adminlogin' %}" class="auth-link">Login here</a></p>
+        </div>
+    </div>
+</div>
+
+<style>
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.auth-header h2 {
+    margin-bottom: 5px;
+    color: #764ba2;
+}
+
+.auth-form {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 10px;
+    background: #764ba2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background: #5a3c7d;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+}
+</style>
+{% endblock %}

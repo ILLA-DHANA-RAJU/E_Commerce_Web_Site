@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Commerce Navbar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      background-color: #343a40;
+      padding: 12px 20px;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h2 {
+      color: #fff;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      gap: 30px;
+    }
+
+    .nav-links li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #ffc107;
+    }
+
+    /* Responsive burger (optional) */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <h2><i class="fa-solid fa-cart-shopping"></i> E-Shop</h2>
+      </div>
+      <ul class="nav-links">
+        <li><a href="http://127.0.0.1:8000/"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="/customerlogin"><i class="fa fa-sign-in-alt"></i> Login</a></li>
+        <li><a href={% url 'adminlogin' %}><i class="fa fa-lock"></i> Admin</a></li>
+        <li><a href="/aboutus"><i class="fa fa-info-circle"></i> About Us</a></li>
+        <li><a href={% url 'contactus' %}><i class="fa fa-phone"></i> Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% include 'ecom/navbar.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>About Us - Smart Cart AI</title>
+  <link rel="stylesheet" href="">
+  <style>
+    body {
+      background-color: #f7f7f7;
+    }
+    .about-container {
+      max-width: 900px;
+      margin: auto;
+      margin-top: 50px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-container : hover{
+      cursor: pointer;
+      background: #000;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    h3 {
+      text-align: left;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 3erm;
+    }
+    p {
+      text-align: justify;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+    }
+    .about-content{
+      color: #555;
+      text-align: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-5">
+    <div class="about-container">
+      <h3>About Us:</h3>
+      <p class="about-content">Welcome to <b>Smart Cart AI</b>, your ultimate destination for premium-quality products at unbeatable prices. We are more than just an online store—we are a community driven by passion, innovation, and a commitment to delivering an exceptional shopping experience.</p>
+      
+      <h3>Who We Are:</h3>
+      <p class="about-content">Founded with a vision to make shopping seamless, affordable, and enjoyable, <b>Smart Cart AI</b> offers a curated selection of products across various categories. Whether you're looking for fashion, electronics, home essentials, or lifestyle products, we have something for everyone.</p>
+      
+      <h3>Our Mission:</h3>
+      <p class="about-content">Our mission is simple: to provide high-quality products, outstanding customer service, and a hassle-free shopping experience. We believe in quality, affordability, and trust, ensuring every purchase brings satisfaction and value to our customers.</p>
+    </div>
+  </div>
+</body>
+
+{% endblock %}
+
+<br><br><br><br><br><br>
+{% include 'ecom/footer.html'%}

@@ -1,0 +1,102 @@
+{% extends 'ecom/admin_base.html' %}
+{% block content %}
+<div class="container">
+  <div class="dashboard-header">
+    <h2>Welcome to Admin Dashboard</h2>
+    <p class="text-muted">Overview of current statistics and activities</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="market-update-block clr-block-1">
+        <div>
+          <h3>{{ total_orders|default:"0" }}</h3>
+          <h4>Total Orders</h4>
+        </div>
+        <div class="market-update-right">
+          <i class="fa fa-bar-chart"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="market-update-block clr-block-2">
+        <div>
+          <h3>₹{{ total_revenue|default:"0.00" }}</h3>
+          <h4>Total Revenue</h4>
+        </div>
+        <div class="market-update-right">
+          <i class="fa fa-inr"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="market-update-block clr-block-3">
+        <div>
+          <h3>{{ active_customers|default:"0" }}</h3>
+          <h4>Active Customers</h4>
+        </div>
+        <div class="market-update-right">
+          <i class="fa fa-users"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="market-update-block clr-block-4">
+        <div>
+          <h3>{{ pending_orders|default:"0" }}</h3>
+          <h4>Pending Orders</h4>
+        </div>
+        <div class="market-update-right">
+          <i class="fa fa-clock-o"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container{
+    padding-top: 50px;
+  }
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .market-update-block {
+    padding: 2em;
+    color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+  .market-update-block:hover {
+    transform: scale(1.03);
+  }
+  .market-update-block h3 {
+    font-size: 2.2em;
+    margin: 0;
+  }
+  .market-update-block h4 {
+    font-size: 1.1em;
+    margin-top: 10px;
+  }
+  .market-update-right i {
+    font-size: 3.5em;
+    background: #fff;
+    color: #343a40;
+    padding: 20px;
+    border-radius: 50%;
+  }
+  .clr-block-1 { background-color: #e74c3c; }
+  .clr-block-2 { background-color: #2ecc71; }
+  .clr-block-3 { background-color: #34495e; }
+  .clr-block-4 { background-color: #3498db; }
+</style>
+{% endblock %}
